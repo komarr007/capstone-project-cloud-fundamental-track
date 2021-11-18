@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from azure.storage.blob import BlobServiceClient, __version__
 from azure.core.exceptions import ResourceNotFoundError
 import json
-from pydantic import BaseModel
 
 connect_str = 'BlobEndpoint=https://clinicdumpmemory.blob.core.windows.net/;QueueEndpoint=https://clinicdumpmemory.queue.core.windows.net/;FileEndpoint=https://clinicdumpmemory.file.core.windows.net/;TableEndpoint=https://clinicdumpmemory.table.core.windows.net/;SharedAccessSignature=sv=2020-08-04&ss=bfqt&srt=sco&sp=rwdlacupitfx&se=2021-12-11T12:28:40Z&st=2021-11-14T04:28:40Z&spr=https&sig=aewhtO2kZiyAsNe7YH0AzhTk73K4FKmNH1v0iOxMEvY%3D'
 container_name = 'scan-lab'
@@ -10,10 +9,6 @@ blob_service_client = BlobServiceClient.from_connection_string(connect_str)
 container_client = blob_service_client.get_container_client(container_name)
 
 app = FastAPI()
-
-class ClinicDump(BaseModel):
-    blob_name: str
-    owner: str
 
 @app.get("/metadata")
 def get_meta():
