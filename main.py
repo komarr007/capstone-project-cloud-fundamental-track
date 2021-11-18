@@ -26,8 +26,7 @@ def get_meta():
                 formatmeta = {"blob_name": [b for b in _.values()][0],"owner":[z for z in _.keys()][0]}
                 tampunganjadi.append(formatmeta)
             json_formatBLob = {"meta": tampunganjadi}
-            jsonblob = json.dumps(json_formatBLob)
-            return(jsonblob)
+            return json_formatBlob
 
     except ResourceNotFoundError:
         return("Container not found.")
