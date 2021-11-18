@@ -3,4 +3,3 @@ uvicorn
 uvloop
 httptools
 azure-storage-blob
-pydantic
