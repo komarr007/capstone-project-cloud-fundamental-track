@@ -2,8 +2,13 @@ from fastapi import FastAPI
 from azure.storage.blob import BlobServiceClient, __version__
 from azure.core.exceptions import ResourceNotFoundError
 import json
+from pydantic import BaseModel
 
 app = FastAPI()
+
+class ClinicDump(BaseModel):
+    blob_name: str
+    owner: str
 
 @app.get("/metadata")
 def get_meta(container_name):
@@ -24,7 +29,7 @@ def get_meta(container_name):
                 formatmeta = {"blob_name": [b for b in _.values()][0],"owner":[z for z in _.keys()][0]}
                 tampunganjadi.append(formatmeta)
             json_formatBLob = {"meta": tampunganjadi}
-            return json_formatBlob
+            return json_formatBLob
 
     except ResourceNotFoundError:
         return("Container not found.")
